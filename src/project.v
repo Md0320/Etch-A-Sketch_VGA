@@ -501,8 +501,10 @@ module etch_title (
   wire in_any    = in_title | in_magic | in_screen;
 
   // position inside the active word, in pixels
+  /* verilator lint_off UNUSEDSIGNAL */
   wire [9:0] lx = in_title ? (px - TITLE_X) : in_magic ? (px - MAGIC_X) : (px - SCREEN_X);
   wire [9:0] ly = in_title ? (py - TITLE_Y) : (py - SMALL_Y);
+  /* verilator lint_on UNUSEDSIGNAL */
 
   // ... and in font units (divide by 4 for the big word, by 2 for the small ones)
   wire [8:0] ux  = in_title ? {1'b0, lx[9:2]} : lx[9:1];
@@ -624,8 +626,10 @@ module etch_knobs (
   wire [9:0] lxs = dx_neg ? (10'd24 - adx) : (10'd24 + adx);
   wire [9:0] lys = dy_neg ? (10'd24 - ady) : (10'd24 + ady);
   wire       in_star_box = (lxs < 10'd48) && (lys < 10'd48);
+  /* verilator lint_off WIDTHTRUNC */
   wire [3:0] stx = lxs / 10'd3;
   wire [3:0] sty = lys / 10'd3;
+  /* verilator lint_on WIDTHTRUNC */
   wire [15:0] star_bits = star_row(sty);
   wire        star_on   = in_star_box && star_bits[4'd15 - stx];
 
