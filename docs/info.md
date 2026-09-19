@@ -9,11 +9,16 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+The pen is shown as a solid black block when it is down and a hollow black square when it is lifted (the square turns grey where it sits on top of ink, so it stays visible).
+After reset the pen is lifted in the middle of the screen. Move it where you want to start, then press START or A.
+Pressing two directions on the very same controller update (for example Up and Right together) moves one step diagonally. Opposite directions cancel out.
+Reset (`rst_n` low) clears the screen and puts the pen back in the middle, lifted.
 
 ## How to test
 
-Explain how to use your project
+Start anywhere. The pen starts lifted (Hollow square) in the middle of the screen. Walk it to any spot without leaving a mark, then put it down (press 'A'/solid square) and draw.
+'A' key - Start; 'x' key - Erase.
+
 
 ## External hardware
 
