@@ -102,17 +102,20 @@ module tt_um_etch_a_sketch (
 
   reg board_state [0:BOARD_SIZE-1];  // 1 = inked cell
 
+  /* verilator lint_off UNUSEDSIGNAL */
   wire [9:0]  rel_x = pix_x - CANVAS_X0;
   wire [9:0]  rel_y = pix_y - CANVAS_Y0;
+  /* verilator lint_on UNUSEDSIGNAL */
+  
   wire [10:0] cell_index = {rel_y[7:3], rel_x[8:3]};
 
   // ----------------------- pen (cursor) state --------------------------
-  localparam integer WIDTH_MAX  = WIDTH  - 1;
-  localparam integer HEIGHT_MAX = HEIGHT - 1;
+  localparam [5:0] WIDTH_MAX = 63;
+  localparam [4:0] HEIGHT_MAX = 31;
   localparam integer CENTER_X   = WIDTH  / 2;
   localparam integer CENTER_Y   = HEIGHT / 2;
 
-  reg [logWIDTH-1:0]  pen_x;
+  reg [logWIDTH-1:0]  pen_x; 
   reg [logHEIGHT-1:0] pen_y;
   reg                 pen_up;   // 1 = pen lifted (moves without drawing), 0 = pen down (drawing)
 
@@ -214,8 +217,8 @@ module tt_um_etch_a_sketch (
 
   always @(posedge clk) begin
     if (boot_reset) begin
-      pen_x <= CENTER_X;   // pen starts in the middle, but lifted -
-      pen_y <= CENTER_Y;   // walk it anywhere before you start drawing
+     pen_x <= CENTER_X[5:0];    
+     pen_y <= CENTER_Y[4:0];   // walk it anywhere before you start drawing
     end else if (idle) begin
       pen_x <= next_pen_x;
       pen_y <= next_pen_y;
@@ -505,9 +508,11 @@ module etch_title (
   wire [8:0] ux  = in_title ? {1'b0, lx[9:2]} : lx[9:1];
   wire [2:0] row = in_title ? ly[4:2] : ly[3:1];
 
+  /* verilator lint_off WIDTHTRUNC */
   wire [3:0] idx = ux / 9'd6;   // which character
   wire [2:0] col = ux % 9'd6;   // which font column inside it (5 = gap)
-
+  /* verilator lint_on WIDTHTRUNC */
+  
   reg [3:0] ch;
   always @* begin
     ch = C_SP;
