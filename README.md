@@ -1,14 +1,12 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# Etch A Sketch: a VGA drawing toy for Tiny Tapeout
 
 - [Read the documentation for project](docs/info.md)
 
-## What is Tiny Tapeout?
+## What is it about?
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
-
-To learn more and get started, visit https://tinytapeout.com.
+A digital take on the classic red-frame Etch A Sketch, written in Verilog for Tiny Tapeout. It outputs a 640×480 @ 60 Hz VGA picture of the toy. You draw on the screen with a game controller (Gamepad Pmod), one press per step.
 
 ## Set up your Verilog project
 
